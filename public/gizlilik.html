@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Gizlilik Politikası — Rüya Rehberi</title>
+<meta name="description" content="Rüya Rehberi gizlilik politikası: yazdığınız rüya nasıl kullanılır, hangi veriler işlenir, çerezler ve reklamlar hakkında bilgi." />
+<meta name="theme-color" content="#070a1a" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<main class="container" style="max-width:760px;">
+  <h1 class="page-title" style="text-align:center;">Gizlilik Politikası</h1>
+  <p class="lead" style="text-align:center;">Son güncelleme: <span id="tarih"></span></p>
+
+  <section class="section prose">
+    <h2>Hangi bilgileri işliyoruz?</h2>
+    <p>
+      Rüya Rehberi'ni kullanmak için hesap açmanız veya kişisel bilgi vermeniz
+      gerekmez. Yalnızca yorumlatmak için yazdığınız rüya metnini işleriz.
+    </p>
+
+    <h2>Yazdığınız rüya nasıl kullanılır?</h2>
+    <p>
+      Yazdığınız rüya metni, yalnızca o anki yorumu üretmek için bir yapay zeka
+      hizmetine iletilir. Yorum oluşturulduktan sonra bu metni ayrıca bir profil
+      oluşturmak için kullanmayız. Ancak rüya metni, yorumu üreten üçüncü taraf
+      yapay zeka sağlayıcısının sunucularından geçer. Bu nedenle, çok özel ve
+      kimliğinizi doğrudan ortaya çıkaran bilgileri (ad-soyad, adres, kimlik
+      numarası, sağlık kaydı gibi) rüya metnine yazmamanızı öneririz.
+    </p>
+
+    <h2>Çerezler</h2>
+    <p>
+      Sitenin temel çalışması için zorunlu olmayan çerezler kullanılabilir.
+      İleride ölçümleme (analitik) veya reklam amaçlı çerezler eklenirse, bu
+      bölüm güncellenecek ve gerekli durumlarda onayınız istenecektir.
+    </p>
+
+    <h2>Reklamlar</h2>
+    <p>
+      Bu sitede ileride reklam gösterimi yapılabilir. Reklam ağları (ör. reklam
+      sağlayıcıları), ilgi alanlarına dayalı reklamlar için çerez ve benzeri
+      teknolojiler kullanabilir. Bu durumda ilgili sağlayıcının gizlilik
+      politikası da geçerli olur ve bu sayfa buna göre güncellenir.
+    </p>
+
+    <h2>Üçüncü taraf hizmetler</h2>
+    <p>
+      Yorum üretimi için harici bir yapay zeka hizmeti (dil modeli sağlayıcısı)
+      ve site altyapısı için barındırma (hosting) hizmeti kullanılır. Bu
+      hizmetlerin kendi gizlilik politikaları geçerlidir.
+    </p>
+
+    <h2>Haklarınız</h2>
+    <p>
+      Kişisel verilerin korunmasına ilişkin yürürlükteki mevzuat (Türkiye'de KVKK
+      dahil) kapsamındaki haklarınıza saygı duyarız. Sorularınız için Hakkımızda
+      sayfasındaki iletişim bölümünden bize ulaşabilirsiniz.
+    </p>
+
+    <div class="disclaimer">
+      <span class="i">☾</span>
+      <span>
+        Bu metin genel bir şablondur ve hukuki danışmanlık yerine geçmez. Siteyi
+        yayına almadan önce, kendi durumunuza ve yürürlükteki mevzuata uygun hale
+        getirmeniz önerilir.
+      </span>
+    </div>
+  </section>
+</main>
+
+<script src="site.js"></script>
+<script>document.getElementById("tarih").textContent = new Date().toLocaleDateString("tr-TR", {year:"numeric",month:"long",day:"numeric"});</script>
+</body>
+</html>

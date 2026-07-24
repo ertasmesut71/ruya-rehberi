@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Rüya Yorumlat — Rüya Rehberi</title>
+<meta name="description" content="Rüyanızı yazın, İslami yorum geleneğinin ışığında dürüst ve kaynaklı bir değerlendirme alın. Ücretsiz, kesin hüküm vermez." />
+<meta name="theme-color" content="#070a1a" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<main class="container">
+  <div style="text-align:center;margin-bottom:8px;font-size:40px;">🌙</div>
+  <h1 class="page-title" style="text-align:center;">Rüyanızı yorumlatın</h1>
+  <p class="lead" style="text-align:center;max-width:640px;margin:0 auto 8px;">
+    Gördüğünüz rüyayı kendi cümlelerinizle yazın. Ne kadar ayrıntı verirseniz
+    değerlendirme o kadar isabetli olur.
+  </p>
+
+  <div class="disclaimer" style="max-width:680px;margin:18px auto 26px;">
+    <span class="i">☾</span>
+    <span>
+      Bu yorumlar dini hüküm veya fetva değildir; kesinlik taşımaz. Rüya bir
+      delil değildir. Kararlarınızı istişare, araştırma ve dua ile veriniz.
+      <strong>En doğrusunu Allah bilir.</strong>
+    </span>
+  </div>
+
+  <div class="card" style="max-width:720px;margin:0 auto;">
+    <label for="ruya" style="display:block;font-weight:600;margin-bottom:8px;">
+      Rüyanız
+    </label>
+    <textarea id="ruya" rows="9" maxlength="6000"
+      placeholder="Örneğin: Rüyamda berrak bir nehrin kenarında yürüyordum. Su çok temizdi ve içim huzurluydu. Karşı kıyıda tanımadığım güler yüzlü biri bana el salladı..."
+      style="width:100%;padding:14px;border-radius:10px;border:1px solid var(--line);background:var(--bg-2);color:var(--ink);font-family:var(--font-body);font-size:16px;line-height:1.6;resize:vertical;"></textarea>
+
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-top:14px;">
+      <span id="sayac" style="color:var(--ink-dim);font-size:13px;">0 / 6000 karakter</span>
+      <button id="gonder" class="btn btn-gold">🌙 Yorumla</button>
+    </div>
+
+    <div id="hata" role="alert" style="display:none;margin-top:14px;color:var(--danger);background:rgba(224,121,107,.1);border:1px solid rgba(224,121,107,.3);border-radius:10px;padding:12px 14px;font-size:15px;"></div>
+  </div>
+
+  <!-- Yükleniyor -->
+  <div id="yukleniyor" style="display:none;text-align:center;margin:36px auto;max-width:720px;">
+    <div class="spinner" aria-hidden="true"></div>
+    <p style="color:var(--ink-soft);margin-top:14px;">Rüyanız değerlendiriliyor, lütfen bekleyin…</p>
+  </div>
+
+  <!-- Sonuç -->
+  <div id="sonuc" style="display:none;max-width:760px;margin:34px auto;">
+    <div class="card">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;">
+        <span style="font-size:24px;">🌙</span>
+        <h2 style="font-family:var(--font-serif);color:var(--gold-soft);margin:0;font-size:22px;">Rüya Yorumunuz</h2>
+      </div>
+      <div id="yorum" class="prose" style="margin-top:14px;"></div>
+
+      <div id="kaynaklar" style="margin-top:22px;padding-top:18px;border-top:1px solid var(--line);"></div>
+
+      <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:22px;">
+        <button id="tekrar" class="btn btn-ghost">Yeni Rüya Yaz</button>
+        <button id="kopyala" class="btn btn-ghost">Yorumu Kopyala</button>
+      </div>
+    </div>
+
+    <div class="disclaimer" style="margin-top:18px;">
+      <span class="i">☾</span>
+      <span>
+        Unutmayın: Bu değerlendirme kesin bir hüküm değildir. Aynı rüya kişiye,
+        zamana ve duruma göre farklı anlamlar taşıyabilir.
+        <strong>En doğrusunu Allah bilir.</strong>
+      </span>
+    </div>
+  </div>
+
+</main>
+
+<style>
+  .spinner {
+    width: 44px; height: 44px; border-radius: 50%;
+    border: 3px solid var(--line); border-top-color: var(--gold);
+    margin: 0 auto; animation: spin 0.9s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  #yorum h2 { font-family: var(--font-serif); color: var(--gold-soft); font-size: 19px; margin: 20px 0 8px; }
+  #yorum h3 { color: var(--ink); font-size: 17px; margin: 16px 0 6px; }
+  #yorum strong { color: var(--ink); }
+  #yorum p { color: var(--ink-soft); margin: 0 0 12px; }
+  #yorum ul { color: var(--ink-soft); }
+  @media (prefers-reduced-motion: reduce) { .spinner { animation: none; } }
+</style>
+
+<script src="site.js"></script>
+<script src="yorumla.js"></script>
+</body>
+</html>
