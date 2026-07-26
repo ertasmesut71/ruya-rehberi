@@ -39,10 +39,10 @@
   ruya.addEventListener("input", guncelleSayac);
   guncelleSayac();
 
-  // Mobilde otomatik büyüyen textarea
+  // Mobilde otomatik büyüyen textarea (rahat bir minimum yükseklikle)
   function otoBuyu() {
     ruya.style.height = "auto";
-    ruya.style.height = Math.min(ruya.scrollHeight, 500) + "px";
+    ruya.style.height = Math.min(Math.max(ruya.scrollHeight, 200), 500) + "px";
   }
   ruya.addEventListener("input", otoBuyu);
 

@@ -217,4 +217,4 @@ main { padding: 40px 0 20px; }
 .btn.ok { border-color: var(--ok); color: var(--ok); }
 
 /* Textarea otomatik büyüme için */
-#ruya { overflow-y: auto; }
+#ruya { overflow-y: auto; min-height: 200px; }
