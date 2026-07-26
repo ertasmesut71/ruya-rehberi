@@ -88,6 +88,27 @@ export const KNOWLEDGE_BASE = [
       "Nefsani rüya kavramı, modern anlayıştaki 'gün içindeki düşünce, kaygı ve arzuların uykuya yansıması' fikriyle örtüşür. Kişinin son günlerde yoğun yaşadığı bir olay, kaygı veya istek rüyaya yansıyabilir. Bu tür rüyalar genellikle haberci sayılmaz; kişinin iç dünyasını anlamasına yardımcı olabilir. Bu yaklaşım teşhis değil, yalnızca genel bir çerçevedir.",
     referans: "Nefsani rüya kavramının genel çerçevesi (özet)",
   },
+  {
+    id: "alim-gelenegi",
+    baslik: "Klasik rüya yorumu alimleri ve gelenekleri",
+    icerik:
+      "İslam tarihinde rüya yorumu (tabir) üzerine eser veren birçok alim vardır. Muhammed b. Sîrîn (İbn Sîrîn), rüya tabiri geleneğinde en çok anılan isimlerdendir; ancak ona atfedilen pek çok eserin sonradan derlendiği, her yorumun ona ait olmadığı bilinir. Abdülgani en-Nablusî'nin 'Ta'tîru'l-enâm' adlı eseri sembolleri alfabetik olarak ele alan meşhur bir kaynaktır. Bu gelenekte semboller sabit anlamlar değil; kişinin durumuna, niyetine ve bağlama göre değişen işaretler olarak görülür. Alimler, rüya yorumunun kesin bilgi değil, içtihadî bir değerlendirme olduğunda birleşir.",
+    referans: "İbn Sîrîn geleneği; Nablusî, Ta'tîru'l-enâm; TDV İA 'Tabir' (özet)",
+  },
+  {
+    id: "sembol-degiskenligi",
+    baslik: "Sembollerin kişiye ve bağlama göre değişmesi",
+    icerik:
+      "Klasik tabir geleneğinde aynı sembol farklı kişiler için farklı, hatta zıt anlamlar taşıyabilir. Örneğin bir sembol bir kişi için hayır, bir başkası için uyarı olabilir. Yorumcu; rüya sahibinin mesleğini, ahlaki durumunu, içinde bulunduğu şartları ve rüyada hissettiği duyguyu birlikte değerlendirir. Bu yüzden hazır sözlük anlamları tek başına yeterli değildir ve kesin hüküm çıkarmak doğru görülmez.",
+    referans: "Klasik tabir usulü (özet)",
+  },
+  {
+    id: "diyanet-yaklasimi",
+    baslik: "Diyanet ve çağdaş yaklaşım",
+    icerik:
+      "Diyanet İşleri Başkanlığı çerçevesinde rüyalar, dinî bir delil ya da hüküm kaynağı olarak görülmez. Rüyanın kişiye moral, uyarı veya teselli verebileceği kabul edilse de; hayat kararlarının rüyalara değil, Kur'an, sünnet, akıl, istişare ve araştırmaya dayandırılması gerektiği vurgulanır. Kötü rüyaların kişiyi karamsarlığa sürüklememesi, güzel rüyaların ise şımartmaması öğütlenir.",
+    referans: "Diyanet Din İşleri Yüksek Kurulu çerçevesi (özet)",
+  },
 ];
 
 // Basit Türkçe metin normalleştirme (arama eşleştirmesi için)
@@ -104,7 +125,7 @@ export function normalizeTr(s) {
 
 // Rüya metnine göre en ilgili bilgi parçalarını seçer (anahtar kelime örtüşmesi).
 // Her zaman temel çerçeve parçalarını (türler, adab, bağlayıcı değil) dahil eder.
-export function selectKnowledge(dreamText, maxItems = 6) {
+export function selectKnowledge(dreamText, maxItems = 8) {
   const q = normalizeTr(dreamText);
   const qWords = new Set(q.split(" ").filter((w) => w.length >= 3));
 
@@ -118,8 +139,15 @@ export function selectKnowledge(dreamText, maxItems = 6) {
     return { item, score };
   });
 
-  // Temel çerçeve: her yorumda bulunması gereken parçalar
-  const alwaysIds = ["ruya-turleri", "yorum-adabi", "ruya-baglayici-degil"];
+  // Temel çerçeve: her yorumda bulunması gereken parçalar.
+  // Üçlü değerlendirme (Kur'an / Hadis / Alimler) için her birinden malzeme sağlanır.
+  const alwaysIds = [
+    "ruya-turleri",
+    "yorum-adabi",
+    "ruya-baglayici-degil",
+    "alim-gelenegi",
+    "diyanet-yaklasimi",
+  ];
   const always = KNOWLEDGE_BASE.filter((k) => alwaysIds.includes(k.id));
 
   const others = scored

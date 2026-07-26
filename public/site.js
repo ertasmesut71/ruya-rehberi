@@ -11,6 +11,7 @@
     { href: "index.html", text: "Ana Sayfa" },
     { href: "yorumla.html", text: "Rüya Yorumlat" },
     { href: "ruya-hakkinda.html", text: "Rüya Hakkında" },
+    { href: "kaynaklar.html", text: "Kaynaklar" },
     { href: "hakkimizda.html", text: "Hakkımızda" },
   ];
 
@@ -39,6 +40,7 @@
     '<a href="index.html">Ana Sayfa</a>' +
     '<a href="yorumla.html">Rüya Yorumlat</a>' +
     '<a href="ruya-hakkinda.html">Rüya Hakkında</a>' +
+    '<a href="kaynaklar.html">Kaynaklar</a>' +
     '<a href="hakkimizda.html">Hakkımızda</a>' +
     "</div>" +
     '<div class="footer-col"><h4>Bilgi</h4>' +

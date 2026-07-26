@@ -143,3 +143,78 @@ main { padding: 40px 0 20px; }
   .nav-toggle { display: inline-block; }
   .footer-grid { gap: 20px; }
 }
+
+/* ==========================================================================
+   1. Tur geliştirmeleri: kartlı sonuç, detay seçici, erişilebilirlik
+   ========================================================================== */
+
+/* Skip link (erişilebilirlik) */
+.skip-link {
+  position: absolute; left: -999px; top: 0; z-index: 100;
+  background: var(--gold); color: #241b02; padding: 10px 16px;
+  border-radius: 0 0 8px 0; font-weight: 600;
+}
+.skip-link:focus { left: 0; text-decoration: none; }
+
+/* Detay seçici */
+.detay-secim {
+  display: flex; align-items: center; flex-wrap: wrap; gap: 14px;
+  margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--line);
+}
+.detay-etiket { color: var(--ink-dim); font-size: 14px; }
+.detay-secim label {
+  display: inline-flex; align-items: center; gap: 6px;
+  color: var(--ink-soft); font-size: 15px; cursor: pointer;
+}
+.detay-secim input { accent-color: var(--gold); cursor: pointer; }
+
+/* Yorum kartları */
+.yorum-kart {
+  background: linear-gradient(180deg, var(--panel) 0%, var(--panel-2) 100%);
+  border: 1px solid var(--line); border-radius: var(--radius);
+  padding: 20px 22px; margin-bottom: 16px;
+  box-shadow: var(--shadow);
+  transition: border-color .18s ease, transform .18s ease;
+}
+.yorum-kart:hover { border-color: rgba(212,175,55,.4); transform: translateY(-2px); }
+.yorum-kart-bas { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+.yorum-kart-bas h3 {
+  font-family: var(--font-serif); color: var(--gold-soft);
+  font-size: 19px; margin: 0;
+}
+.yorum-ikon {
+  flex: none; width: 30px; height: 30px; display: inline-flex;
+  align-items: center; justify-content: center;
+  color: var(--gold); background: rgba(212,175,55,.1);
+  border: 1px solid rgba(212,175,55,.25); border-radius: 8px;
+}
+.yorum-ikon svg { width: 18px; height: 18px; }
+.yorum-kart-icerik p { color: var(--ink-soft); margin: 0 0 10px; }
+.yorum-kart-icerik p:last-child { margin-bottom: 0; }
+.yorum-kart-icerik ul { color: var(--ink-soft); padding-left: 20px; margin: 8px 0; }
+.yorum-kart-icerik li { margin: 5px 0; }
+.yorum-kart-icerik strong { color: var(--ink); }
+
+/* Kaynaklar (açılır) */
+.kaynak-detay {
+  background: var(--panel-2); border: 1px solid var(--line);
+  border-radius: var(--radius-sm); padding: 4px 16px; margin-top: 8px;
+}
+.kaynak-detay summary {
+  cursor: pointer; padding: 12px 0; color: var(--gold-soft);
+  font-family: var(--font-serif); font-size: 16px; list-style: none;
+}
+.kaynak-detay summary::-webkit-details-marker { display: none; }
+.kaynak-detay summary::before { content: "▸ "; color: var(--gold); }
+.kaynak-detay[open] summary::before { content: "▾ "; }
+.kaynak-liste { margin: 0 0 10px; padding-left: 18px; color: var(--ink-dim); font-size: 14px; }
+.kaynak-liste li { margin: 5px 0; }
+.kaynak-liste .k-baslik { color: var(--ink-soft); }
+.kaynak-liste .k-ref { font-style: italic; }
+.kaynak-not { color: var(--ink-dim); font-size: 13px; margin: 8px 0 12px; }
+
+/* Kopyala butonu başarı durumu */
+.btn.ok { border-color: var(--ok); color: var(--ok); }
+
+/* Textarea otomatik büyüme için */
+#ruya { overflow-y: auto; }
