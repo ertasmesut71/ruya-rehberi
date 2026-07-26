@@ -217,4 +217,20 @@ main { padding: 40px 0 20px; }
 .btn.ok { border-color: var(--ok); color: var(--ok); }
 
 /* Textarea otomatik büyüme için */
-#ruya { overflow-y: auto; min-height: 200px; }
+/* Rüya yazım alanı: tam genişlik, rahat yükseklik (eski sürümdeki gibi) */
+#ruya {
+  width: 100%;
+  display: block;
+  min-height: 200px;
+  padding: 14px;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  background: var(--bg-2);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  resize: vertical;
+  overflow-y: auto;
+}
+#ruya::placeholder { color: var(--ink-dim); }
