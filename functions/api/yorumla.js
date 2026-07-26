@@ -76,6 +76,123 @@ function kaynakMetni(parcalar) {
     .join("\n\n");
 }
 
+// Model yanitindaki yabanci (ing/fr) kelimeleri Turkcesiyle degistirir.
+// llama modeli Turkce uretirken ara sira yabanci kelime karistiriyor;
+// bu, cikti kullaniciya ulasmadan once guvenli bir temizlik saglar.
+const YABANCI_SOZLUK = {
+  "sometimes": "bazen",
+  "transformation": "dönüşüm",
+  "emotional": "duygusal",
+  "emotionally": "duygusal olarak",
+  "experience": "tecrübe",
+  "experiences": "tecrübeler",
+  "expérience": "tecrübe",
+  "surrounding": "çevresindeki",
+  "surroundings": "çevre",
+  "focus": "odak",
+  "positive": "olumlu",
+  "negative": "olumsuz",
+  "the most": "en",
+  "most important": "en önemlisi",
+  "en importante": "en önemlisi",
+  "important": "önemli",
+  "message": "mesaj",
+  "symbol": "sembol",
+  "symbols": "semboller",
+  "balance": "denge",
+  "peaceful": "huzurlu",
+  "spiritual": "manevi",
+  "spiritually": "manevi olarak",
+  "journey": "yolculuk",
+  "guidance": "rehberlik",
+  "wisdom": "bilgelik",
+  "meaning": "anlam",
+  "reflection": "yansıma",
+  "insight": "içgörü",
+  "awareness": "farkındalık",
+  "clarity": "berraklık",
+  "hope": "umut",
+  "future": "gelecek",
+  "change": "değişim",
+  "renewal": "yenilenme",
+  "abundance": "bolluk",
+  "blessing": "bereket",
+  "blessings": "bereketler",
+  "inshallah": "inşallah",
+  "mashallah": "maşallah",
+  "however": "ancak",
+  "therefore": "bu nedenle",
+  "moreover": "ayrıca",
+  "generally": "genellikle",
+  "essentially": "esasen",
+  "potentially": "olası olarak",
+  "context": "bağlam",
+  "process": "süreç",
+  "harmony": "uyum",
+  "purity": "saflık",
+  "beauty": "güzellik",
+  "richness": "zenginlik",
+  "diversity": "çeşitlilik",
+  "protection": "koruma",
+  "shelter": "sığınak",
+  "calm": "sakin",
+  "vision": "görüntü",
+  "soul": "ruh",
+  "heart": "kalp",
+};
+
+// Yabanci kok + Turkce ek karisimi olabilen kokler (or. "surroundingindeki")
+const YABANCI_KOKLER = {
+  "surrounding": "çevresi",
+  "transformation": "dönüşüm",
+  "experience": "tecrübe",
+  "emotion": "duygu",
+  "reflection": "yansıma",
+};
+
+function ilkHarfBuyukMu(s) {
+  return s[0] === s[0].toLocaleUpperCase("tr-TR") &&
+         s[0] !== s[0].toLocaleLowerCase("tr-TR");
+}
+function buyutKoru(eslesme, turkce) {
+  if (ilkHarfBuyukMu(eslesme)) {
+    return turkce.charAt(0).toLocaleUpperCase("tr-TR") + turkce.slice(1);
+  }
+  return turkce;
+}
+
+function turkcelestir(metin) {
+  let sonuc = metin;
+
+  // 1) Tam kelime eslesmeleri
+  for (const [yabanci, turkce] of Object.entries(YABANCI_SOZLUK)) {
+    const kacisli = yabanci.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    const re = new RegExp("\\b" + kacisli + "\\b", "gi");
+    sonuc = sonuc.replace(re, (m) => buyutKoru(m, turkce));
+  }
+
+  // 2) Yabanci kok + Turkce ek karisimi (or. "surroundingindeki" -> "çevresindeki")
+  //    Kokun ardindan Turkce harf(ler) gelirse, koku Turkcelestir, eki koru.
+  for (const [kok, turkceKok] of Object.entries(YABANCI_KOKLER)) {
+    const kacisli = kok.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    // kok + en az bir Turkce harf/ek
+    const re = new RegExp("\\b" + kacisli + "([a-zçğıöşü]+)", "gi");
+    sonuc = sonuc.replace(re, (m, ek) => {
+      let birlesim = turkceKok;
+      const seslis = "aeıioöuü";
+      // Kok sesliyle bitiyor ve ek ayni sesliyle basliyorsa cift sesliyi tekile indir
+      const sonHarf = birlesim.slice(-1).toLocaleLowerCase("tr-TR");
+      const ilkEk = ek.slice(0, 1).toLocaleLowerCase("tr-TR");
+      if (seslis.includes(sonHarf) && sonHarf === ilkEk) {
+        birlesim = birlesim.slice(0, -1);
+      }
+      return buyutKoru(m, birlesim + ek);
+    });
+  }
+
+  return sonuc;
+}
+
 function jsonResponse(obj, status = 200) {
   return new Response(JSON.stringify(obj), {
     status,
@@ -209,10 +326,13 @@ export async function onRequestPost(context) {
     );
   }
 
-  const yorum = data?.choices?.[0]?.message?.content?.trim();
+  let yorum = data?.choices?.[0]?.message?.content?.trim();
   if (!yorum) {
     return jsonResponse({ error: "Yorum boş döndü. Lütfen tekrar deneyin." }, 502);
   }
+
+  // Yabanci kelime temizligi (cift koruma: prompt + sunucu tarafi)
+  yorum = turkcelestir(yorum);
 
   return jsonResponse({
     yorum,
