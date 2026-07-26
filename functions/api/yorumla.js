@@ -76,78 +76,49 @@ function kaynakMetni(parcalar) {
     .join("\n\n");
 }
 
-// Model yanitindaki yabanci (ing/fr) kelimeleri Turkcesiyle degistirir.
-// llama modeli Turkce uretirken ara sira yabanci kelime karistiriyor;
-// bu, cikti kullaniciya ulasmadan once guvenli bir temizlik saglar.
-const YABANCI_SOZLUK = {
+// Model yanitindaki yabanci karakter/kelimeleri temizler.
+// Strateji: Turkce yalnizca Latin alfabesi kullanir. Bu yuzden Latin disi
+// tum alfabeleri (Cince, Hintce/Devanagari, Arapca, Korece, Kiril, vb.)
+// yakalayip temizleriz -- boylece hangi dil gelirse gelsin calisir.
+// Ayrica sik karisan Ingilizce kelimeler icin kisa bir liste tutariz.
+
+// Sik gorulen Ingilizce sizmalar (Latin harfli olduklari icin liste gerekir)
+const INGILIZCE_SOZLUK = {
   "sometimes": "bazen",
   "transformation": "dönüşüm",
   "emotional": "duygusal",
-  "emotionally": "duygusal olarak",
   "experience": "tecrübe",
-  "experiences": "tecrübeler",
-  "expérience": "tecrübe",
-  "surrounding": "çevresindeki",
-  "surroundings": "çevre",
-  "focus": "odak",
+  "surrounding": "çevre",
+  "outer": "dış",
+  "various": "çeşitli",
   "positive": "olumlu",
   "negative": "olumsuz",
-  "the most": "en",
-  "most important": "en önemlisi",
-  "en importante": "en önemlisi",
-  "important": "önemli",
-  "message": "mesaj",
+  "focus": "odak",
   "symbol": "sembol",
   "symbols": "semboller",
   "balance": "denge",
-  "peaceful": "huzurlu",
   "spiritual": "manevi",
-  "spiritually": "manevi olarak",
   "journey": "yolculuk",
-  "guidance": "rehberlik",
-  "wisdom": "bilgelik",
-  "meaning": "anlam",
-  "reflection": "yansıma",
-  "insight": "içgörü",
-  "awareness": "farkındalık",
-  "clarity": "berraklık",
-  "hope": "umut",
-  "future": "gelecek",
-  "change": "değişim",
-  "renewal": "yenilenme",
-  "abundance": "bolluk",
-  "blessing": "bereket",
-  "blessings": "bereketler",
-  "inshallah": "inşallah",
-  "mashallah": "maşallah",
+  "message": "mesaj",
   "however": "ancak",
   "therefore": "bu nedenle",
   "moreover": "ayrıca",
-  "generally": "genellikle",
-  "essentially": "esasen",
-  "potentially": "olası olarak",
   "context": "bağlam",
   "process": "süreç",
+  "inner": "iç",
+  "peaceful": "huzurlu",
   "harmony": "uyum",
-  "purity": "saflık",
   "beauty": "güzellik",
-  "richness": "zenginlik",
-  "diversity": "çeşitlilik",
-  "protection": "koruma",
-  "shelter": "sığınak",
-  "calm": "sakin",
+  "abundance": "bolluk",
+  "blessing": "bereket",
   "vision": "görüntü",
-  "soul": "ruh",
-  "heart": "kalp",
-};
-
-// Yabanci kok + Turkce ek karisimi olabilen kokler (or. "surroundingindeki")
-const YABANCI_KOKLER = {
-  "surrounding": "çevresi",
-  "transformation": "dönüşüm",
-  "experience": "tecrübe",
-  "emotion": "duygu",
+  "wisdom": "bilgelik",
+  "guidance": "rehberlik",
   "reflection": "yansıma",
+  "insight": "içgörü",
+  "clarity": "berraklık",
+  "change": "değişim",
+  "renewal": "yenilenme",
 };
 
 function ilkHarfBuyukMu(s) {
@@ -164,31 +135,26 @@ function buyutKoru(eslesme, turkce) {
 function turkcelestir(metin) {
   let sonuc = metin;
 
-  // 1) Tam kelime eslesmeleri
-  for (const [yabanci, turkce] of Object.entries(YABANCI_SOZLUK)) {
-    const kacisli = yabanci.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  // 1) Sik gorulen Ingilizce kelimeleri Turkcesiyle degistir (tam kelime, buyuk/kucuk duyarsiz)
+  for (const [ing, tr] of Object.entries(INGILIZCE_SOZLUK)) {
+    const kacisli = ing.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
     const re = new RegExp("\\b" + kacisli + "\\b", "gi");
-    sonuc = sonuc.replace(re, (m) => buyutKoru(m, turkce));
+    sonuc = sonuc.replace(re, (m) => buyutKoru(m, tr));
   }
 
-  // 2) Yabanci kok + Turkce ek karisimi (or. "surroundingindeki" -> "çevresindeki")
-  //    Kokun ardindan Turkce harf(ler) gelirse, koku Turkcelestir, eki koru.
-  for (const [kok, turkceKok] of Object.entries(YABANCI_KOKLER)) {
-    const kacisli = kok.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-    // kok + en az bir Turkce harf/ek
-    const re = new RegExp("\\b" + kacisli + "([a-zçğıöşü]+)", "gi");
-    sonuc = sonuc.replace(re, (m, ek) => {
-      let birlesim = turkceKok;
-      const seslis = "aeıioöuü";
-      // Kok sesliyle bitiyor ve ek ayni sesliyle basliyorsa cift sesliyi tekile indir
-      const sonHarf = birlesim.slice(-1).toLocaleLowerCase("tr-TR");
-      const ilkEk = ek.slice(0, 1).toLocaleLowerCase("tr-TR");
-      if (seslis.includes(sonHarf) && sonHarf === ilkEk) {
-        birlesim = birlesim.slice(0, -1);
-      }
-      return buyutKoru(m, birlesim + ek);
-    });
-  }
+  // 2) Latin/Turkce disi karakter obeklerini temizle (Cince, Hintce, Arapca, Korece, Kiril, vb.)
+  //    Izin verilen: Latin harfleri, Turkce harfleri, rakamlar, bosluk ve yaygin noktalama.
+  //    Bir veya daha fazla ardisik "yabanci" karakteri tek seferde kaldirir.
+  //    Yabanci obek Turkce bir kelimenin ekiyle bitisikse (or. "बदलime"),
+  //    sadece yabanci kismi kaldirir; Turkce ek/harfler korunur.
+  const izinli = "A-Za-zÇçĞğİıÖöŞşÜüÂâÎîÛûÊêÔôÀ-ÿĀ-ſ0-9\\s.,;:!?'\"()\\-–—…%&/\\n\\r*#\\[\\]";
+  const yabanciObek = new RegExp("[^" + izinli + "]+", "g");
+  sonuc = sonuc.replace(yabanciObek, "");
+
+  // 3) Temizlik sonrasi olusabilecek cift bosluk / bosluk-noktalama duzeltmeleri
+  sonuc = sonuc
+    .replace(/[ \t]{2,}/g, " ")      // cift bosluklari tekile indir
+    .replace(/\s+([.,;:!?])/g, "$1"); // noktalama oncesi bosluk
 
   return sonuc;
 }
