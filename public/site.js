@@ -11,6 +11,7 @@
     { href: "index.html", text: "Ana Sayfa" },
     { href: "yorumla.html", text: "Rüya Yorumlat" },
     { href: "ruya-hakkinda.html", text: "Rüya Hakkında" },
+    { href: "rehber-dualar.html", text: "Rehber & Dualar" },
     { href: "kaynaklar.html", text: "Kaynaklar" },
     { href: "hakkimizda.html", text: "Hakkımızda" },
   ];
@@ -42,6 +43,13 @@
     '<a href="ruya-hakkinda.html">Rüya Hakkında</a>' +
     '<a href="kaynaklar.html">Kaynaklar</a>' +
     '<a href="hakkimizda.html">Hakkımızda</a>' +
+    "</div>" +
+    '<div class="footer-col"><h4>Rehber & Dualar</h4>' +
+    '<a href="ruyada-su-gormek.html">Rüyada Su Görmek</a>' +
+    '<a href="istihare-nedir-nasil-yapilir.html">İstihare Nedir</a>' +
+    '<a href="kotu-ruya-gorunce-ne-yapilir.html">Kötü Rüya Görünce</a>' +
+    '<a href="borctan-sikintidan-kurtulma-dualari.html">Borç ve Sıkıntı Duaları</a>' +
+    '<a href="rizik-bereket-bolluk-dualari.html">Rızık ve Bereket Duaları</a>' +
     "</div>" +
     '<div class="footer-col"><h4>Bilgi</h4>' +
     '<a href="gizlilik.html">Gizlilik Politikası</a>' +
