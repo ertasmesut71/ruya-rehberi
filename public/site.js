@@ -27,7 +27,6 @@
     `<a class="brand" href="index.html">${moonSvg}<span>Rüya Rehberi</span></a>` +
     '<button class="nav-toggle" aria-label="Menü" aria-expanded="false">☰</button>' +
     `<div class="nav-links" id="navLinks">${navLinks}` +
-    '<a href="yorumla.html" class="btn btn-gold" style="padding:8px 16px;font-size:14px">Rüyanı Yaz</a>' +
     "</div></nav></header>";
 
   const footer =
