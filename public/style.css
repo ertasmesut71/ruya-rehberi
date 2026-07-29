@@ -58,7 +58,7 @@ a:hover { text-decoration: underline; }
   display: flex; align-items: center; justify-content: space-between;
   gap: 16px; padding: 12px 20px; max-width: var(--maxw); margin: 0 auto;
 }
-.brand { display: flex; align-items: center; gap: 10px; font-family: var(--font-serif); font-size: 20px; color: var(--ink); }
+.brand { display: flex; align-items: center; gap: 10px; font-family: var(--font-serif); font-size: 20px; color: var(--ink); white-space: nowrap; flex: none; }
 .brand:hover { text-decoration: none; }
 .brand .moon { width: 26px; height: 26px; flex: none; }
 .nav-links { display: flex; gap: 18px; align-items: center; flex-wrap: wrap; }
@@ -95,7 +95,8 @@ main { padding: 40px 0 20px; }
 }
 .btn:hover { text-decoration: none; }
 .btn:active { transform: translateY(1px); }
-.btn-gold { background: linear-gradient(180deg, var(--gold-soft), var(--gold)); color: #241b02; }
+.btn-gold { background: linear-gradient(180deg, var(--gold-soft), var(--gold)); color: #241b02 !important; }
+.btn-gold:visited, a.btn-gold { color: #241b02 !important; }
 .btn-gold:hover { filter: brightness(1.06); }
 .btn-ghost { background: transparent; color: var(--ink); border-color: var(--line); }
 .btn-ghost:hover { border-color: var(--gold); color: var(--gold-soft); }
@@ -234,3 +235,22 @@ main { padding: 40px 0 20px; }
   overflow-y: auto;
 }
 #ruya::placeholder { color: var(--ink-dim); }
+
+/* Dua metni kutusu (Arapça okunuş + meal + kaynak) */
+.dua-kutu {
+  background: linear-gradient(180deg, rgba(212,175,55,.06), rgba(212,175,55,.02));
+  border: 1px solid rgba(212,175,55,.3);
+  border-radius: var(--radius); padding: 20px 22px; margin: 18px 0;
+}
+.dua-kutu .dua-baslik { color: var(--gold-soft); font-family: var(--font-serif); font-size: 17px; margin: 0 0 12px; }
+.dua-kutu .dua-okunus {
+  color: var(--ink); font-size: 16px; line-height: 1.8; font-style: italic;
+  padding: 12px 14px; background: rgba(255,255,255,.03);
+  border-left: 3px solid var(--gold); border-radius: 6px; margin: 0 0 12px;
+}
+.dua-kutu .dua-anlam { color: var(--ink-soft); margin: 0 0 10px; }
+.dua-kutu .dua-anlam strong { color: var(--ink); }
+.dua-kutu .dua-kaynak {
+  color: var(--ink-dim); font-size: 13px; margin: 8px 0 0;
+  padding-top: 10px; border-top: 1px solid var(--line);
+}
