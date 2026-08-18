@@ -50,7 +50,11 @@ ZENGİNLİK VE DERİNLİK:
 Rüyayı 1-2 cümleyle, anladığını göstererek özetle. Uyarı/çekince ekleme, sadece özetle.
 
 ## Öne Çıkan Semboller
-Rüyadaki başlıca sembolleri "- " ile madde madde yaz. Her sembolün gelenekteki zengin çağrışımlarını ihtimal diliyle açıkla.
+Rüyadaki başlıca sembolleri "- " ile madde madde yaz ve her birini DERİNLEMESİNE işle. Yüzeysel geçme. Bir sembolün rüyada belirtilen ÖZELLİKLERİNE göre ayrı ayrı çağrışımlarını açıkla:
+- Renk (ör. beyaz/siyah/yeşil), hâl (sakin/saldırgan, temiz/kirli), eylem (ısırma, kaçma, kovalama), yer (ev/dışarı/su) ve büyüklük gibi ayrıntılar varsa, bunların klasik tabir geleneğinde nasıl FARKLI çağrışımlar taşıyabileceğini belirt. Örneğin bir yılan sembolü için: renginin, saldırıp saldırmadığının, nerede görüldüğünün geleneksel yorumda farklı anlamlara gelebileceğini ihtimal diliyle açıkla.
+- Kullanıcı bir ayrıntı belirtmemişse o ayrıntıyı UYDURMA; sadece rüyada geçen unsurları yorumla.
+- Dil KESİN olmasın: "genellikle ... olarak yorumlanmıştır", "gelenekte ... çağrıştırır", "bazı yorumculara göre ... olabilir" gibi ihtimal dili kullan. "Kesinlikle şudur" deme.
+- ASLA uydurma: Kaynağını bilmediğin spesifik bir hükmü ("beyaz yılan kesin şu demektir" gibi) sahihmiş gibi verme. Emin olmadığın yerde genel ve ihtiyatlı konuş.
 
 ## Kur'an-ı Kerim Işığında
 Rüyayı Kur'an'daki rüya anlayışı ve ilgili kıssalar (varsa Yusuf, İbrahim, Fetih) çerçevesinde değerlendir. Doğrudan ilgili kıssa yoksa bunu bir kez, kısaca ve dürüstçe belirt; ardından genel Kur'ânî ilkeyi (ör. cennet/bahçe imgesi, hayır, sabır, tevekkül) zengin biçimde işle.
@@ -59,7 +63,11 @@ Rüyayı Kur'an'daki rüya anlayışı ve ilgili kıssalar (varsa Yusuf, İbrahi
 Rüyayı üç rüya türü (rahmani/salih, şeytani, nefsani) ve rüya edebi çerçevesinde değerlendir. Bu rüyanın hangi türe daha yakın durabileceğini gerekçesiyle söyle. Tür ayrımını bu başlıkta işle; diğer başlıklarda tekrarlama.
 
 ## İslam Alimlerine Göre
-Rüyayı klasik tabir geleneği (İbn Sîrîn, Nablusî geleneği, sembol yaklaşımı) çerçevesinde yorumla. Sembollerin kişiye/duruma göre değişebileceği hatırlatmasını burada bir kez yap.
+Rüyayı klasik tabir geleneği çerçevesinde ZENGİN ve SOMUT biçimde yorumla:
+- Mümkün olduğunda belirli tabir alimlerinin genel yaklaşımına atıf yap: örneğin İbn Sîrîn'in sembolleri kişinin durumuna ve niyetine göre değerlendiren yaklaşımı, Nablusî'nin "Ta'tîrü'l-enâm" geleneğindeki sembol çeşitliliği gibi. Bu alimlerin BİLİNEN genel metodunu anlat.
+- ÇOK ÖNEMLİ - UYDURMA YASAĞI: Belirli bir alime, gerçekten söyleyip söylemediğinden emin olmadığın SPESİFİK bir hüküm ATFETME. "İbn Sîrîn şöyle demiştir: [uydurma alıntı]" ASLA yazma. Bunun yerine "İbn Sîrîn geleneğinde semboller genellikle ... şeklinde ele alınır" gibi, o alimin bilinen genel yaklaşımını anlat. Emin olmadığın spesifik atıflardan kaçın.
+- Farklı yorumcuların aynı sembole farklı bakabileceğini, yorumun kişinin haline göre değiştiğini burada (bir kez) belirt. Bu hatırlatmayı diğer başlıklarda tekrarlama.
+- Bu bölüm doyurucu olsun; sembolün klasik gelenekteki farklı okumalarını örneklerle açıkla.
 
 ## Diyanet ve Çağdaş Yaklaşım
 Rüyaların dini delil olmadığını, kararların istişare-araştırma-dua ile alınması gerektiğini dengeli bir dille işle. Rüyanın kişiye moral/umut verebileceğini vurgula.
@@ -246,7 +254,7 @@ export async function onRequestPost(context) {
       ? "Uzunluk: Yorumu ayrıntılı, derin ve doyurucu yap; her başlığı zengin biçimde, örnekler ve çağrışımlarla genişçe açıkla. Yüzeysel geçme."
       : "Uzunluk: Yorumu dengeli bir uzunlukta, her başlığı 2-4 cümleyle akıcı biçimde yaz.";
 
-  const kullaniciMesaji = `Kullanıcının rüyası:\n"""${dreamText}"""\n\nYorumlarken dayanabileceğin İslami kaynak çerçevesi:\n"""${kaynak}"""\n\n${detayNotu}\n\nYukarıdaki kurallara ve başlık yapısına harfiyen uyarak bu rüyayı yorumla.`;
+  const kullaniciMesaji = `Kullanıcının rüyası:\n"""${dreamText}"""\n\nYorumlarken dayanabileceğin İslami kaynak çerçevesi:\n"""${kaynak}"""\n\n${detayNotu}\n\nÖNEMLİ: Bu yorumu SADECE bu rüyaya özgü yaz. Kalıplaşmış, her rüyada tekrarlanan genel cümlelerden kaçın; bu rüyanın kendine has ayrıntılarına (geçen semboller, renkler, olaylar, hissedilen duygu) odaklan. Sembolleri, rüyada belirtilen özellikleriyle (renk, hâl, eylem, yer) birlikte ayrı ayrı ve derinlemesine ele al.\n\nYukarıdaki kurallara ve başlık yapısına harfiyen uyarak bu rüyayı yorumla.`;
 
   let groqRes;
   try {
